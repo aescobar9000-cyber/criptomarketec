@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRIPTO MARKET EC – Aprende a Comprar Bitcoin de Forma Segura</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #080b10;
+      --dark:      #0d1117;
+      --dark2:     #111827;
+      --dark3:     #1a2235;
+      --orange:    #f7931a;
+      --orange2:   #ff6b00;
+      --gold:      #d4a017;
+      --gold-lt:   #f0c040;
+      --blue:      #1a3a6e;
+      --blue-lt:   #2563eb;
+      --blue-glow: #3b82f6;
+      --gray:      #6b7280;
+      --gray-lt:   #9ca3af;
+      --white:     #ffffff;
+      --white-dim: rgba(255,255,255,0.07);
+      --border:    rgba(255,255,255,0.08);
+      --shadow-orange: 0 0 40px rgba(247,147,26,0.25);
+      --shadow-blue:   0 0 40px rgba(37,99,235,0.2);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── GRID BACKGROUND ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(247,147,26,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(247,147,26,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+      background: rgba(8,11,16,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; font-weight: 900;
+      color: var(--black);
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    .nav-logo-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--white); letter-spacing: 1px; }
+    .nav-logo-text span { color: var(--orange); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--gray-lt); font-size: 0.88rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--orange); }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      color: var(--black) !important;
+      padding: 9px 20px; border-radius: 50px;
+      font-weight: 700 !important; font-size: 0.85rem !important;
+      transition: opacity 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: scale(1.04); }
+
+    @media(max-width: 768px){ .nav-links { display: none; } }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      padding: 120px 6vw 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Glow orbs */
+    #hero::before {
+      content: '';
+      position: absolute; top: 10%; left: -10%;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(247,147,26,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute; bottom: 0; right: -5%;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; animation: fadeUp 0.9s ease both; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(247,147,26,0.1);
+      border: 1px solid rgba(247,147,26,0.3);
+      color: var(--orange);
+      border-radius: 50px; padding: 6px 16px;
+      font-size: 0.75rem; font-weight: 700;
+      font-family: 'IBM Plex Mono', monospace;
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero-tag::before { content: '▶'; font-size: 0.5rem; animation: blink 1.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 4.5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      color: var(--white);
+      margin-bottom: 1.4rem;
+    }
+    .hero-title .highlight {
+      background: linear-gradient(90deg, var(--orange), var(--gold-lt));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem; color: var(--gray-lt); line-height: 1.75;
+      max-width: 500px; margin-bottom: 2.5rem; font-weight: 300;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 3rem; }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: linear-gradient(135deg, var(--orange), var(--orange2));
+      color: var(--black);
+      text-decoration: none; padding: 15px 28px;
+      border-radius: 50px; font-weight: 700; font-size: 0.97rem;
+      box-shadow: 0 8px 30px rgba(247,147,26,0.4);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(247,147,26,0.55); }
+
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: transparent; color: var(--white);
+      text-decoration: none; padding: 15px 28px;
+      border-radius: 50px; font-weight: 600; font-size: 0.97rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { border-color: var(--orange); background: rgba(247,147,26,0.07); }
+
+    .hero-metrics { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .metric { }
+    .metric .num { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--orange); }
+    .metric .num span { font-size: 1rem; }
+    .metric p { font-size: 0.78rem; color: var(--gray); text-transform: uppercase; letter-spacing: 1px; }
+
+    /* Hero visual */
+    .hero-visual {
+      position: relative; z-index: 1;
+      animation: fadeLeft 1s ease both 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .btc-card {
+      width: 100%; max-width: 440px;
+      background: linear-gradient(145deg, #141a26, #0d1117);
+      border: 1px solid rgba(247,147,26,0.2);
+      border-radius: 24px;
+      padding: 2rem;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), var(--shadow-orange);
+      position: relative; overflow: hidden;
+    }
+    .btc-card::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(247,147,26,0.15) 0%, transparent 70%);
+    }
+
+    .btc-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .btc-logo { display: flex; align-items: center; gap: 10px; }
+    .btc-logo .symbol {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 900; color: white;
+      box-shadow: 0 4px 20px rgba(247,147,26,0.4);
+    }
+    .btc-logo div strong { display: block; font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--white); }
+    .btc-logo div span { font-size: 0.78rem; color: var(--gray); font-family: 'IBM Plex Mono', monospace; }
+    .btc-badge { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: #22c55e; padding: 5px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 700; font-family: 'IBM Plex Mono', monospace; }
+
+    .btc-price { font-family: 'IBM Plex Mono', monospace; font-size: 2.4rem; font-weight: 500; color: var(--white); margin-bottom: 0.3rem; }
+    .btc-price span { color: var(--orange); }
+    .btc-change { font-size: 0.82rem; color: #22c55e; font-family: 'IBM Plex Mono', monospace; margin-bottom: 1.5rem; }
+
+    .btc-chart { height: 60px; display: flex; align-items: flex-end; gap: 4px; margin-bottom: 1.5rem; }
+    .btc-chart .bar {
+      flex: 1; border-radius: 3px 3px 0 0;
+      background: linear-gradient(180deg, var(--orange), rgba(247,147,26,0.3));
+      transition: height 0.3s;
+    }
+
+    .btc-features { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .btc-feature {
+      background: var(--white-dim); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .btc-feature .fi { font-size: 1.2rem; }
+    .btc-feature p { font-size: 0.75rem; color: var(--gray-lt); margin: 0; }
+
+    /* Float cards */
+    .float-card {
+      position: absolute; background: var(--dark2);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      animation: floatY 3s ease-in-out infinite;
+    }
+    .float-card-1 { bottom: -20px; left: -30px; animation-delay: 0s; }
+    .float-card-2 { top: -10px; right: -20px; animation-delay: 1.5s; }
+    .float-card p { font-size: 0.72rem; color: var(--gray); margin: 0; font-family: 'IBM Plex Mono', monospace; }
+    .float-card strong { font-size: 0.88rem; color: var(--white); display: block; margin-bottom: 2px; }
+    .float-card .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #22c55e; margin-right: 5px; }
+
+    @keyframes floatY { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:none} }
+    @keyframes fadeLeft { from{opacity:0;transform:translateX(30px)} to{opacity:1;transform:none} }
+
+    @media(max-width: 900px){
+      #hero { grid-template-columns: 1fr; padding-top: 100px; }
+      .hero-visual { display: none; }
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 5rem 6vw; position: relative; z-index: 1; }
+    .section-tag {
+      display: inline-block;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.72rem; font-weight: 500;
+      color: var(--orange); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800; color: var(--white);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .section-title .accent { color: var(--orange); }
+    .section-sub { font-size: 1rem; color: var(--gray-lt); line-height: 1.75; font-weight: 300; max-width: 560px; }
+
+    /* ── PROBLEMA ── */
+    #problema { background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .problema-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+
+    .miedo-list { display: grid; gap: 1rem; margin-top: 2rem; }
+    .miedo-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: rgba(255,59,59,0.06); border: 1px solid rgba(255,59,59,0.12);
+      border-radius: var(--radius-sm); padding: 16px 20px;
+      transition: background 0.3s;
+    }
+    .miedo-item:hover { background: rgba(255,59,59,0.1); }
+    .miedo-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .miedo-item h4 { font-size: 0.92rem; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+    .miedo-item p { font-size: 0.83rem; color: var(--gray-lt); line-height: 1.6; margin: 0; }
+
+    .solucion-panel {
+      background: linear-gradient(145deg, #0f1a2e, #0d1117);
+      border: 1px solid rgba(247,147,26,0.2);
+      border-radius: 20px; padding: 2.5rem;
+      box-shadow: var(--shadow-orange);
+    }
+    .solucion-panel h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; color: var(--white); margin-bottom: 0.5rem; }
+    .solucion-panel .s-tag { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 0.8rem; display: block; }
+    .solucion-panel p { font-size: 0.92rem; color: var(--gray-lt); line-height: 1.75; margin-bottom: 1.5rem; }
+    .solucion-checks { display: grid; gap: 10px; }
+    .solucion-check {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: var(--white);
+    }
+    .solucion-check::before { content: '✓'; color: var(--orange); font-weight: 700; font-size: 1rem; flex-shrink: 0; }
+
+    @media(max-width:768px){ .problema-inner { grid-template-columns: 1fr; } }
+
+    /* ── BENEFICIOS ── */
+    #beneficios { background: var(--black); }
+    .beneficios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .beneficio-card {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem 1.5rem;
+      text-align: center; position: relative; overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+    }
+    .beneficio-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--orange), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .beneficio-card:hover { transform: translateY(-6px); border-color: rgba(247,147,26,0.3); box-shadow: var(--shadow-orange); }
+    .beneficio-card:hover::before { transform: scaleX(1); }
+    .beneficio-icon {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(247,147,26,0.1); border: 1px solid rgba(247,147,26,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; margin: 0 auto 1.2rem;
+    }
+    .beneficio-card h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
+    .beneficio-card p { font-size: 0.85rem; color: var(--gray-lt); line-height: 1.65; }
+
+    /* ── MENTORIA ── */
+    #mentoria { background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .mentoria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; margin-top: 3rem; }
+
+    .steps { display: grid; gap: 1.2rem; }
+    .step {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--dark3); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); padding: 18px 20px;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .step:hover { border-color: rgba(247,147,26,0.3); background: rgba(247,147,26,0.04); }
+    .step-num {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      border-radius: 8px; display: flex; align-items: center; justify-content: center;
+      font-family: 'IBM Plex Mono', monospace; font-weight: 700; font-size: 0.85rem;
+      color: var(--black);
+    }
+    .step h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .step p { font-size: 0.83rem; color: var(--gray-lt); line-height: 1.6; margin: 0; }
+
+    .aprende-panel {
+      background: linear-gradient(145deg, #0f1a2e, var(--dark));
+      border: 1px solid rgba(37,99,235,0.25);
+      border-radius: 20px; padding: 2.5rem;
+      box-shadow: var(--shadow-blue);
+    }
+    .aprende-panel h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 1.5rem; }
+    .aprende-items { display: grid; gap: 1rem; }
+    .aprende-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px;
+      background: var(--white-dim); border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+    .aprende-item .ai { font-size: 1.3rem; flex-shrink: 0; }
+    .aprende-item h5 { font-size: 0.88rem; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+    .aprende-item p { font-size: 0.8rem; color: var(--gray-lt); margin: 0; line-height: 1.5; }
+
+    @media(max-width:768px){ .mentoria-grid { grid-template-columns: 1fr; } }
+
+    /* ── CONFIANZA ── */
+    #confianza { background: var(--black); }
+    .confianza-stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; margin-bottom: 3rem;
+    }
+    .cstat { background: var(--dark2); text-align: center; padding: 2.5rem 1rem; }
+    .cstat .cn { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: var(--orange); line-height: 1; margin-bottom: 6px; }
+    .cstat .cn span { color: var(--gold-lt); }
+    .cstat p { font-size: 0.82rem; color: var(--gray-lt); text-transform: uppercase; letter-spacing: 1px; }
+    @media(max-width:600px){ .confianza-stats { grid-template-columns: 1fr; } }
+
+    .confianza-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 1.5rem; }
+    .conf-card {
+      background: var(--dark2); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .conf-card::after {
+      content: '"';
+      position: absolute; top: 10px; right: 20px;
+      font-family: 'Syne', sans-serif; font-size: 5rem;
+      color: rgba(247,147,26,0.08); line-height: 1;
+    }
+    .stars { color: var(--orange); font-size: 0.85rem; margin-bottom: 1rem; }
+    .conf-card p { font-size: 0.9rem; color: var(--gray-lt); line-height: 1.7; font-style: italic; margin-bottom: 1.5rem; }
+    .conf-author { display: flex; align-items: center; gap: 12px; }
+    .conf-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--blue-lt));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: white; font-size: 0.95rem; flex-shrink: 0;
+    }
+    .conf-author strong { font-size: 0.88rem; color: var(--white); display: block; }
+    .conf-author span { font-size: 0.78rem; color: var(--gray); }
+
+    .trust-row {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      justify-content: center; margin-top: 3rem;
+    }
+    .trust-chip {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--white-dim); border: 1px solid var(--border);
+      border-radius: 50px; padding: 9px 18px;
+      font-size: 0.83rem; color: var(--gray-lt); font-weight: 500;
+    }
+    .trust-chip .ti { font-size: 1rem; }
+
+    /* ── CTA FINAL ── */
+    #cta-final {
+      background: linear-gradient(135deg, #0d1829 0%, #111827 50%, #0a0f1a 100%);
+      text-align: center; padding: 7rem 6vw;
+      border-top: 1px solid var(--border); position: relative; overflow: hidden;
+    }
+    #cta-final::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 700px; height: 400px; border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(247,147,26,0.1) 0%, transparent 65%);
+    }
+    #cta-final .section-title { max-width: 640px; margin: 0 auto 1rem; }
+    #cta-final .section-sub { margin: 0 auto 2.5rem; text-align: center; }
+    #cta-final .btc-price-live {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem; color: var(--gray);
+      margin-bottom: 2rem;
+    }
+    #cta-final .btc-price-live span { color: var(--orange); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050709;
+      border-top: 1px solid var(--border);
+      color: var(--gray);
+      text-align: center; padding: 2rem 6vw;
+      font-size: 0.83rem; font-family: 'IBM Plex Mono', monospace;
+    }
+    footer strong { color: var(--orange); }
+
+    /* ── WHATSAPP FLOAT ── */
+    .wa-float {
+      position: fixed; bottom: 28px; right: 28px; z-index: 9999;
+      display: flex; align-items: center; gap: 12px;
+      background: #25d366; color: white; text-decoration: none;
+      padding: 14px 22px; border-radius: 50px;
+      font-weight: 700; font-size: 0.92rem;
+      box-shadow: 0 6px 30px rgba(37,211,102,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fadeUp 1s ease both 1s;
+    }
+    .wa-float:hover { transform: scale(1.05); box-shadow: 0 10px 40px rgba(37,211,102,0.55); }
+    .wa-float svg { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
+    @media(max-width:480px){ .wa-float span { display: none; } .wa-float { padding: 14px; border-radius: 50%; } }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── TICKER ── */
+    .ticker {
+      background: rgba(247,147,26,0.07);
+      border-top: 1px solid rgba(247,147,26,0.15);
+      border-bottom: 1px solid rgba(247,147,26,0.15);
+      padding: 10px 0; overflow: hidden;
+      white-space: nowrap; position: relative; z-index: 1;
+    }
+    .ticker-inner {
+      display: inline-flex; gap: 3rem;
+      animation: ticker 20s linear infinite;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.78rem; color: var(--gray-lt);
+    }
+    .ticker-inner span { color: var(--orange); margin-right: 6px; }
+    @keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">₿</div>
+    <span class="nav-logo-text">CRIPTO<span> MARKET EC</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#problema">El Problema</a></li>
+    <li><a href="#mentoria">Mentoría</a></li>
+    <li><a href="#beneficios">Beneficios</a></li>
+    <li><a href="#confianza">Testimonios</a></li>
+    <li><a href="https://wa.me/1234567890?text=Hola,%20quiero%20aprender%20a%20comprar%20Bitcoin%20de%20forma%20segura" class="nav-cta">Empezar ahora</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Mentoría especializada en Bitcoin</div>
+    <h1 class="hero-title">
+      Aprende a comprar<br>
+      <span class="highlight">Bitcoin</span> de forma<br>
+      segura y confiable
+    </h1>
+    <p class="hero-sub">
+      Sin miedo, sin estafas, sin perder dinero. Te enseñamos paso a paso cómo entrar al mundo del Bitcoin, cómo almacenarlo y cómo proteger tu capital digital a largo plazo.
+    </p>
+    <div class="hero-actions">
+      <a href="https://wa.me/1234567890?text=Hola,%20quiero%20aprender%20a%20comprar%20Bitcoin%20de%20forma%20segura" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+        Quiero aprender a comprar Bitcoin
+      </a>
+      <a href="#mentoria" class="btn-secondary">Ver mentoría →</a>
+    </div>
+    <div class="hero-metrics">
+      <div class="metric">
+        <div class="num">+150<span></span></div>
+        <p>Estudiantes</p>
+      </div>
+      <div class="metric">
+        <div class="num">0<span>%</span></div>
+        <p>Estafas reportadas</p>
+      </div>
+      <div class="metric">
+        <div class="num">5<span>★</span></div>
+        <p>Calificación</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="btc-card">
+      <div class="btc-card-header">
+        <div class="btc-logo">
+          <div class="symbol">₿</div>
+          <div>
+            <strong>Bitcoin</strong>
+            <span>BTC / USD</span>
+          </div>
+        </div>
+        <div class="btc-badge">▲ EN ALZA</div>
+      </div>
+      <div class="btc-price">$<span>97,420</span></div>
+      <div class="btc-change">▲ +3.42% hoy &nbsp;|&nbsp; +140% este año</div>
+      <div class="btc-chart">
+        <div class="bar" style="height:30%"></div>
+        <div class="bar" style="height:45%"></div>
+        <div class="bar" style="height:38%"></div>
+        <div class="bar" style="height:55%"></div>
+        <div class="bar" style="height:42%"></div>
+        <div class="bar" style="height:68%"></div>
+        <div class="bar" style="height:52%"></div>
+        <div class="bar" style="height:75%"></div>
+        <div class="bar" style="height:60%"></div>
+        <div class="bar" style="height:88%"></div>
+        <div class="bar" style="height:72%"></div>
+        <div class="bar" style="height:100%"></div>
+      </div>
+      <div class="btc-features">
+        <div class="btc-feature"><span class="fi">🔐</span><p>Almacenamiento seguro</p></div>
+        <div class="btc-feature"><span class="fi">📈</span><p>Reserva de valor</p></div>
+        <div class="btc-feature"><span class="fi">⚡</span><p>Compra paso a paso</p></div>
+        <div class="btc-feature"><span class="fi">🛡️</span><p>Protección anti-estafa</p></div>
+      </div>
+    </div>
+    <div class="float-card float-card-1">
+      <strong>🎓 Mentoría activa</strong>
+      <p><span class="dot"></span>Nuevo estudiante inscrito</p>
+    </div>
+    <div class="float-card float-card-2">
+      <strong>₿ Hold strategy</strong>
+      <p>Protege tu capital a largo plazo</p>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <div>₿ <span>Bitcoin</span> — La primera criptomoneda del mundo&nbsp;&nbsp;&nbsp;</div>
+    <div>🔐 <span>Seguridad</span> — Aprende a proteger tus activos digitales&nbsp;&nbsp;&nbsp;</div>
+    <div>📈 <span>Hold</span> — Estrategia de largo plazo con Bitcoin&nbsp;&nbsp;&nbsp;</div>
+    <div>🛡️ <span>Anti-estafa</span> — Aprende a identificar fraudes en cripto&nbsp;&nbsp;&nbsp;</div>
+    <div>⚡ <span>CRIPTO MARKET EC</span> — Tu mentoría de confianza en Ecuador&nbsp;&nbsp;&nbsp;</div>
+    <div>₿ <span>Bitcoin</span> — La primera criptomoneda del mundo&nbsp;&nbsp;&nbsp;</div>
+    <div>🔐 <span>Seguridad</span> — Aprende a proteger tus activos digitales&nbsp;&nbsp;&nbsp;</div>
+    <div>📈 <span>Hold</span> — Estrategia de largo plazo con Bitcoin&nbsp;&nbsp;&nbsp;</div>
+    <div>🛡️ <span>Anti-estafa</span> — Aprende a identificar fraudes en cripto&nbsp;&nbsp;&nbsp;</div>
+    <div>⚡ <span>CRIPTO MARKET EC</span> — Tu mentoría de confianza en Ecuador&nbsp;&nbsp;&nbsp;</div>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section id="problema">
+  <div class="problema-inner">
+    <div class="reveal">
+      <p class="section-tag">// El problema</p>
+      <h2 class="section-title">Por qué la gente pierde dinero en <span class="accent">cripto</span></h2>
+      <p class="section-sub">El mundo de las criptomonedas está lleno de oportunidades, pero también de riesgos reales para quien no tiene educación financiera digital.</p>
+      <div class="miedo-list">
+        <div class="miedo-item">
+          <div class="miedo-icon">😨</div>
+          <div><h4>Miedo a las estafas</h4><p>Proyectos fraudulentos, "pump and dump" y falsos gurús que prometen ganancias imposibles.</p></div>
+        </div>
+        <div class="miedo-item">
+          <div class="miedo-icon">📉</div>
+          <div><h4>Comprar sin conocimiento</h4><p>Entrar al mercado por emoción sin entender cómo funciona Bitcoin lleva a pérdidas innecesarias.</p></div>
+        </div>
+        <div class="miedo-item">
+          <div class="miedo-icon">🔑</div>
+          <div><h4>No saber cómo almacenar</h4><p>Dejar los Bitcoin en exchanges sin entender la custodia propia es uno de los errores más comunes.</p></div>
+        </div>
+        <div class="miedo-item">
+          <div class="miedo-icon">🤯</div>
+          <div><h4>Información confusa y técnica</h4><p>El exceso de jerga técnica y contenido contradictorio genera confusión y parálisis.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="solucion-panel">
+        <span class="s-tag">// La solución</span>
+        <h3>CRIPTO MARKET EC te guía desde cero</h3>
+        <p>Nuestra mentoría está diseñada para principiantes completos. Te enseñamos todo lo que necesitas saber para comprar Bitcoin con seguridad y confianza, sin tecnicismos innecesarios.</p>
+        <div class="solucion-checks">
+          <div class="solucion-check">Aprende a comprar Bitcoin paso a paso</div>
+          <div class="solucion-check">Identifica y evita estafas desde el primer día</div>
+          <div class="solucion-check">Almacena tus Bitcoin de forma segura</div>
+          <div class="solucion-check">Entiende Bitcoin como reserva de valor</div>
+          <div class="solucion-check">Estrategia de hold para largo plazo</div>
+          <div class="solucion-check">Acompañamiento personal durante todo el proceso</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto;">
+    <p class="section-tag">// Beneficios</p>
+    <h2 class="section-title">Lo que obtienes con nuestra <span class="accent">mentoría</span></h2>
+  </div>
+  <div class="beneficios-grid">
+    <div class="beneficio-card reveal">
+      <div class="beneficio-icon">🔐</div>
+      <h3>Seguridad total</h3>
+      <p>Aprende a proteger tus Bitcoin con billeteras frías, contraseñas seguras y buenas prácticas de custodia propia.</p>
+    </div>
+    <div class="beneficio-card reveal">
+      <div class="beneficio-icon">🧠</div>
+      <h3>Conocimiento real</h3>
+      <p>Educación basada en fundamentos sólidos de Bitcoin, no en especulación ni promesas vacías de riqueza rápida.</p>
+    </div>
+    <div class="beneficio-card reveal">
+      <div class="beneficio-icon">🗽</div>
+      <h3>Independencia financiera</h3>
+      <p>Controla tu propio dinero sin depender de bancos ni intermediarios. Bitcoin es tu activo, tus reglas.</p>
+    </div>
+    <div class="beneficio-card reveal">
+      <div class="beneficio-icon">🛡️</div>
+      <h3>Protección contra inflación</h3>
+      <p>Bitcoin tiene un suministro limitado de 21 millones. Aprende a usarlo como cobertura contra la devaluación.</p>
+    </div>
+    <div class="beneficio-card reveal">
+      <div class="beneficio-icon">📊</div>
+      <h3>Estrategia de largo plazo</h3>
+      <p>Entiende el hold como filosofía de inversión: comprar, almacenar y esperar con convicción y paciencia.</p>
+    </div>
+    <div class="beneficio-card reveal">
+      <div class="beneficio-icon">🤝</div>
+      <h3>Acompañamiento personal</h3>
+      <p>No estás solo. Te guiamos en cada paso del proceso con soporte directo y respuesta a todas tus preguntas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORÍA -->
+<section id="mentoria">
+  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 1rem;">
+    <p class="section-tag">// La mentoría</p>
+    <h2 class="section-title">¿Qué aprenderás <span class="accent">paso a paso</span>?</h2>
+    <p class="section-sub" style="margin:0 auto;">Un proceso claro, ordenado y sin tecnicismos para que cualquier persona pueda comenzar.</p>
+  </div>
+  <div class="mentoria-grid">
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div><h4>Fundamentos de Bitcoin</h4><p>Qué es Bitcoin, cómo funciona la blockchain y por qué es diferente a otras criptomonedas.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div><h4>Cómo comprar tu primer Bitcoin</h4><p>Plataformas confiables, verificación de identidad, órdenes de compra y comisiones.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div><h4>Almacenamiento seguro</h4><p>Diferencias entre hot wallets y cold wallets. Cómo usar billeteras de hardware y software.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div><h4>Cómo evitar estafas</h4><p>Señales de alerta, proyectos fraudulentos, phishing y cómo proteger tus claves privadas.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">05</div>
+        <div><h4>Estrategia de hold a largo plazo</h4><p>Mentalidad de inversor, Dollar Cost Averaging (DCA) y gestión emocional del mercado.</p></div>
+      </div>
+      <div class="step">
+        <div class="step-num">06</div>
+        <div><h4>Seguimiento y soporte continuo</h4><p>Consultas personalizadas por WhatsApp y seguimiento de tu proceso de aprendizaje.</p></div>
+      </div>
+    </div>
+    <div class="aprende-panel reveal">
+      <h3>¿Para quién es esta mentoría?</h3>
+      <div class="aprende-items">
+        <div class="aprende-item">
+          <div class="ai">👤</div>
+          <div><h5>Principiantes absolutos</h5><p>No necesitas saber nada de tecnología o finanzas para empezar.</p></div>
+        </div>
+        <div class="aprende-item">
+          <div class="ai">💼</div>
+          <div><h5>Personas que quieren proteger sus ahorros</h5><p>Frente a la inflación y devaluación de monedas locales.</p></div>
+        </div>
+        <div class="aprende-item">
+          <div class="ai">🏦</div>
+          <div><h5>Quienes desconfían del sistema bancario</h5><p>Bitcoin te da control total sobre tu propio dinero.</p></div>
+        </div>
+        <div class="aprende-item">
+          <div class="ai">📱</div>
+          <div><h5>Personas que han sido estafadas antes</h5><p>Te enseñamos a distinguir lo real de lo fraudulento en cripto.</p></div>
+        </div>
+        <div class="aprende-item">
+          <div class="ai">🌎</div>
+          <div><h5>Cualquier persona en Ecuador y LATAM</h5><p>Mentoría adaptada a la realidad financiera de nuestra región.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIANZA -->
+<section id="confianza">
+  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 3rem;">
+    <p class="section-tag">// Confianza y resultados</p>
+    <h2 class="section-title">Resultados que <span class="accent">hablan solos</span></h2>
+  </div>
+  <div class="confianza-stats reveal">
+    <div class="cstat"><div class="cn">+150<span></span></div><p>Personas mentoreadas</p></div>
+    <div class="cstat"><div class="cn">100<span>%</span></div><p>Libre de estafas reportadas</p></div>
+    <div class="cstat"><div class="cn">5<span>★</span></div><p>Calificación promedio</p></div>
+  </div>
+  <div class="confianza-cards">
+    <div class="conf-card reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Tenía mucho miedo de perder mi dinero en cripto. Gracias a CRIPTO MARKET EC entendí cómo funciona todo y compré mi primer Bitcoin con total confianza. El acompañamiento fue increíble."</p>
+      <div class="conf-author">
+        <div class="conf-avatar">A</div>
+        <div><strong>Andrés M.</strong><span>Emprendedor, Quito</span></div>
+      </div>
+    </div>
+    <div class="conf-card reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Me habían intentado estafar antes con una 'inversión en cripto'. Aquí aprendí a identificar los fraudes y finalmente pude comprar Bitcoin de verdad y guardarlo de forma segura."</p>
+      <div class="conf-author">
+        <div class="conf-avatar">V</div>
+        <div><strong>Valeria C.</strong><span>Contadora, Guayaquil</span></div>
+      </div>
+    </div>
+    <div class="conf-card reveal">
+      <div class="stars">★★★★★</div>
+      <p>"La mentoría es clara, sin tecnicismos y muy práctica. En una semana ya tenía mi billetera configurada y mis primeros satoshis guardados. Lo recomiendo totalmente."</p>
+      <div class="conf-author">
+        <div class="conf-avatar">R</div>
+        <div><strong>Roberto S.</strong><span>Ingeniero, Cuenca</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="trust-row reveal">
+    <div class="trust-chip"><span class="ti">🎓</span> Educación basada en fundamentos</div>
+    <div class="trust-chip"><span class="ti">🔐</span> Enfoque en seguridad</div>
+    <div class="trust-chip"><span class="ti">🤝</span> Soporte personalizado</div>
+    <div class="trust-chip"><span class="ti">🇪🇨</span> Adaptado a Ecuador</div>
+    <div class="trust-chip"><span class="ti">₿</span> Solo Bitcoin, sin altcoins riesgosas</div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <p class="section-tag">// ¿Listo para comenzar?</p>
+  <h2 class="section-title">El mejor momento para<br>aprender Bitcoin <span class="accent">es hoy</span></h2>
+  <p class="section-sub">Miles de personas en Ecuador ya están comprando y almacenando Bitcoin de forma segura. No te quedes atrás por falta de conocimiento.</p>
+  <div class="btc-price-live">Bitcoin hoy: <span>$97,420 USD</span> &nbsp;▲ +3.42%</div>
+  <a href="https://wa.me/1234567890?text=Hola,%20quiero%20aprender%20a%20comprar%20Bitcoin%20de%20forma%20segura%20con%20CRIPTO%20MARKET%20EC" class="btn-primary" style="font-size:1.05rem; padding:17px 34px;">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Quiero aprender a comprar Bitcoin
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>CRIPTO MARKET EC</strong> &nbsp;·&nbsp; Mentoría en Bitcoin &nbsp;·&nbsp; Ecuador &nbsp;·&nbsp; © 2025 — Todos los derechos reservados</p>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/1234567890?text=Hola,%20quiero%20aprender%20a%20comprar%20Bitcoin%20de%20forma%20segura" class="wa-float" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+  <span>Quiero aprender Bitcoin</span>
+</a>
+
+<script>
+  // Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach((el,i) => {
+    const parent = el.closest('.beneficios-grid, .steps, .confianza-cards, .miedo-list');
+    if(parent){
+      const idx = Array.from(parent.querySelectorAll('.reveal')).indexOf(el);
+      el.style.transitionDelay = (idx * 0.08) + 's';
+    }
+    obs.observe(el);
+  });
+
+  // Live BTC price ticker simulation
+  const priceEl = document.querySelector('.btc-price');
+  if(priceEl){
+    let base = 97420;
+    setInterval(() => {
+      base += Math.floor(Math.random() * 80 - 40);
+      priceEl.innerHTML = '$<span>' + base.toLocaleString() + '</span>';
+    }, 3000);
+  }
+</script>
+</body>
+</html>
